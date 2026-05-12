@@ -44,18 +44,51 @@ If a contact sent a new message in less than 2 hours interval, and there is no t
 Create Mysql Database using docker:
 _Note_: change MYSQL_DATABASE, MYSQL_PASSWORD, MYSQL_USER and MYSQL_ROOT_PASSWORD.
 
+
+sudo nano docker-compose.yml
 ```bash
-docker run --name whaticketdb -e MYSQL_ROOT_PASSWORD=strongpassword -e MYSQL_DATABASE=whaticket -e MYSQL_USER=whaticket -e MYSQL_PASSWORD=whaticket --restart always -p 3306:3306 -d mariadb:latest --character-set-server=utf8mb4 --collation-server=utf8mb4_bin
+version: '3.8'
 
-# Or run using `docker-compose` as below
-# Before copy .env.example to .env first and set the variables in the file.
-docker-compose up -d mysql
+services:
+  mysql:
+    image: mariadb:latest
+    container_name: whaticketdb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: strongpassword
+      MYSQL_DATABASE: whaticket
+      MYSQL_USER: whaticket
+      MYSQL_PASSWORD: whaticket
+    ports:
+      - "3306:3306"
+    command: 
+      - "--character-set-server=utf8mb4"
+      - "--collation-server=utf8mb4_bin"
+    volumes:
+      - mysql_data:/var/lib/mysql
 
-# To administer this mysql database easily using phpmyadmin. 
-# It will run by default on port 9000, but can be changed in .env using `PMA_PORT`
-docker-compose -f docker-compose.phpmyadmin.yaml up -d
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: whaticket_phpmyadmin
+    restart: always
+    ports:
+      - "9000:80"
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: strongpassword
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_data:
 ```
+Iniciar el Docker de Mysql:
 
+```bash
+docker-compose up -d
+
+```
 Install puppeteer dependencies:
 
 ```bash
