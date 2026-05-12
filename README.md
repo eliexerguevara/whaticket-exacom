@@ -130,6 +130,7 @@ JWT_REFRESH_SECRET=75756756756
 Install backend dependencies, build app, run migrations and seeds:
 
 ```bash
+cd ~/whaticket-exacom/backend
 npm install
 npm run build
 npx sequelize db:migrate
