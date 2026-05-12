@@ -228,14 +228,14 @@ Clone this repository:
 
 ```bash
 cd ~
-git clone https://github.com/canove/whaticket whaticket
+git clone https://github.com/eliexerguevara/whaticket-exacom.git whaticket-exacom
 ```
 
 Create backend .env file and fill with details:
 
 ```bash
-cp whaticket/backend/.env.example whaticket/backend/.env
-nano whaticket/backend/.env
+cp whaticket-exacom/backend/.env.example whaticket/backend/.env
+nano whaticket-exacom/backend/.env
 ```
 
 ```bash
@@ -520,10 +520,10 @@ nano updateWhaticket
 
 ```bash
 #!/bin/bash
-echo "Updating Whaticket, please wait."
+echo "Updating Whaticket-Exacom, please wait."
 
 cd ~
-cd whaticket
+cd whaticket-exacom
 git pull
 cd backend
 npm install
