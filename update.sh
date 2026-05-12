@@ -1,8 +1,6 @@
 #!/bin/bash
 echo "Updating Whaticket-Exacom, please wait."
 
-cd ~
-cd whaticket-exacom
 git pull
 cd backend
 npm install
